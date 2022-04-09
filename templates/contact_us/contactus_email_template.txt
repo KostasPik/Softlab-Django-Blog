@@ -1,0 +1,12 @@
+{% autoescape off %}
+Hello,
+
+{% if email %}
+    Contact from user {{email}}
+{% endif %}
+
+{{body}}
+
+
+
+{% endautoescape %}

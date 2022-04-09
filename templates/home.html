@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load compress %} 
+{% load crispy_forms_tags %}
+{% load static %}
+{% load cache %}
+
+
+{% block meta_tags%}
+<meta name='robots' content='index, follow' />
+<meta name='description' content='Softlab is a blog deticated to making you a better coder through a vast collection of blog posts and coding tutorials.' />
+<meta name='keywords' content='Softlab, Blog, Coding, Developer, Software, Posts, Coding Tutorials' />
+{%endblock %}
+
+{% block title %}SoftLab{% endblock %}
+
+
+{% block content %}
+
+
+<div class="col">
+    <!-- <img src="{% static 'images/softlab-intro-logo-proper-1.png' %}" class="img-fluid" style="margin: 0;padding:0;max-width: 15rem; margin-bottom: 10px;"> -->
+    <div class="row">
+        {% for first_post in posts|slice:":1"%} <!-- This loop runs only 1 time. MAKES LESS QUERRIES THAN JUST DOING posts.0 -->
+        <div class="col-lg-8 mb-3">
+            <div class="card border-0">
+
+                <a href="{% url 'post_details' first_post.slug %}">
+                    <img src="{{first_post.thumbnail}}/-/resize/900x/-/quality/lightest/-/format/auto/" class="card-img-top img-fluid rounded-image" alt="{{first_post.title}}">
+                </a>
+                <div class="card-body m-0 p-0 pt-3">
+                <a href="{% url 'post_details' first_post.slug %}">
+                    <h2 class='card-title h2 my-0 py-0' >{{first_post.title}}</h2>
+                </a>
+                    <p class="card-body m-0 p-0 pt-3 my-1 text-muted">{{first_post.snippet}}</p>
+
+                    <small class="text-muted card-text">
+                        
+                        <span class="mr-2">{{first_post.post_date}} | <i class="fa fa-comments" aria-hidden="true"></i> {{first_post.comments_count }} | </span>
+                        
+                        <!-- <span class="material-icons material-icon">local_offer</span> -->
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        {% for post_tag in first_post.tags.all %}    
+                        <a href="{% url 'tag_posts' post_tag.slug %}">{{post_tag}}</a>
+                        {% endfor %}
+                    </small>
+                    </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="col-lg-4">
+            <div class="sidebar">
+                <div class='row g-2 g-lg-3'>
+                    {% include 'newsletter/newsletter_form.html' %}
+                </div>
+                <br>
+
+              <div class="row  g-2 g-lg-3">
+                {% include 'categories_fragment.html'%}
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-lg-3">
+            <!-- <h3>Πρόσφατες Δημοσιεύσεις</h3>
+            <hr> -->
+            <h4 class='my-0'>Recent Posts</h4>
+
+        <div class="d-flex justify-content-between align-items-center w-100 mt-0 mb-2" id="blog-posts">
+            <!-- <h4 class='my-0'>Πρόσφατες Δημοσιεύσεις</h4> -->
+            <hr>
+            <br>
+        
+            <a class="button blue  btn-sm" href="{% url 'posts' %}" >View More <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        {% for post in posts|slice:"1:" %}
+        <div class="col blog-post p-2" >
+            <div class="post-card">
+                <img loading="lazy" class="img-fluid rounded-image" src="{{post.thumbnail}}/-/resize/500x/-/quality/lightest/-/format/auto/" alt="{{post.title}}">
+                <a class="post-card-title" href="{% url 'post_details' post.slug%}">
+                    <h4>{{post.title}}</h4>
+                </a>
+
+                    <small class="text-muted">
+                    <span class="mr-2">{{post.post_date}} | <i class="fa fa-comments" aria-hidden="true"></i>
+                        {{post.comments_count }} | </span>
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        {% for post_tag in post.tags.all %}    
+                        <a href="{% url 'tag_posts' post_tag.slug%}">{{post_tag}}</a>
+                        {% endfor %}
+                </small>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="d-flex justify-content-end align-items-center w-100 mt-0 mb-2">
+            <a  class="button blue btn btn-sm" href="{% url 'posts' %}" >View More <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <br>
+    
+
+</div>
+
+
+{% endblock %}

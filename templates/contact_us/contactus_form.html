@@ -1,0 +1,14 @@
+{% load crispy_forms_tags %}
+<div class="feedback_form">
+    <h3><span class="material-icons material-icon">
+        rate_review
+        </span> Contact Us</h3>
+        <hr>
+        <p class="text-muted">Note: If you don't provide an email address, we have no way of getting back to you!</p>
+
+   <form method='POST' action="{% url 'contact_us' %}" id="contactus-form">
+        {{contactus_form | crispy}}
+        <button type="submit" class="button red mt-2">Contact</button>
+        <div class="loading-effect"></div>
+    </form>
+</div>

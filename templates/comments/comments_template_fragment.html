@@ -1,0 +1,70 @@
+<div class="comment-section container mb-4">
+    <div class="comment-section-title"><h5><i class="fa fa-comments" aria-hidden="true"></i> Comments</h5></div>
+        <div class="comment-section-body">
+            {% if not comments %}
+            <h4>Be the first one to add a comment!</h4>
+            {% endif %}
+
+
+            {% for comment in comments %}
+        {% if comment.is_parent %}
+        <div class="pt-3" >
+            <div class="first px-2"> <span class="text1">
+                <div class="d-flex justify-content-between py-1 pt-2">
+                <div><span class="text2"><strong>{{comment.name}}</strong></span></div>
+                <div>
+                    <a class="text3" onclick="replyTo(pk='{{comment.pk}}', name='{{comment.name}}')">Reply</a>
+                </div>
+                </div>
+            {{comment.body}}</span>    
+            </div>
+        </div>
+        {% for child in comment.children reversed %}
+            <div class="child" style="margin-left: 25px">
+                <div class="second px-2 py-2"> <span class="text1">
+                    <div class="d-flex justify-content-between py-1 pt-2">
+                    <div><span class="text2"><span class="text-muted"><i class="fa fa-reply" aria-hidden="true"></i> </span><strong> {{child.name}}</strong> <span class="text-muted">Replied</span></div>
+                    <div>
+                        <a class="text3" onclick="replyTo(pk='{{child.parent.pk}}', name='{{child.name}}')">Reply</a>
+                    </div>
+                    </div>
+                {{child.body}}</span>    
+                </div>
+            </div>
+
+        {% endfor %}
+        <hr style="all: revert">
+        
+    {% endif %}
+    
+    {% endfor %}
+    <br>
+
+
+
+    <div class="add-comment">
+        <h5>Add your comment</h5>
+        <hr>
+        <div class="d-flex replying-to justify-content-between">
+            <p id="reply-to-name" style="color: #c60000" hidden></p>
+            <a id="cancel-reply" style="color: #c60000" onclick='cancelReply()' hidden>Cancel</a>
+        </div>
+        <form method="POST" action="{% url 'add_comment' post.pk%}" id="add-comment-form">
+            {% csrf_token %}
+
+        <input type="text" placeholder="Όνομα" name="Add name" id="comment-name" class="form-control" name="name" class="form-control">
+        <input type="text" name='parent-pk' id='parent-pk' hidden>
+        <textarea class="form-control" type="text" name="body" id="comment-body" placeholder="Σχολιάστε το Post"></textarea>
+        <input type="text" id="honeypot-comment" hidden name="honeypot" class="form-control">
+        <div class="loading-effect"></div>
+
+        <button type="submit" class="button blue">Comment</button>
+        <button type="button" class="button red" onclick="cancelForm()">Cancel</button>
+
+        </form>
+    </div>
+
+
+    </div>
+</div>
+

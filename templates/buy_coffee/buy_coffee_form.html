@@ -1,0 +1,10 @@
+<div class="buy-coffee container mb-4">
+    <div class="buy-coffee-title"><h5>Buy me coffee</h5></div>
+        <div class="buy-coffee-body">
+            <form action="{% url 'buy_coffee' %}" method="POST">
+                {% csrf_token %}
+                <p>Enjoy the tutorial? Feel free to buy me a coffee. Coffee makes it easier and more relaxing for me to write long tutorials.</p>
+                <button type="submit" class="button red mb-2">Buy me coffee<img src="https://cdn-icons-png.flaticon.com/512/184/184483.png" class="img-fluid" style="width:30px"></button>
+              </form>
+        </div>
+</div>

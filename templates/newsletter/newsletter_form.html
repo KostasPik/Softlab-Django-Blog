@@ -1,0 +1,14 @@
+{% load crispy_forms_tags %}
+<div class="become-newsletter-member">
+    <div class="become-newsletter-member-title"><h5>Why sign up for our weekly newsletter?</h5></div>
+        <div class="become-newsletter-member-body">
+            <p class="">Receiving weekly emails about coding make you a better developer.</p>        
+            <form id="newsletter-form" method="POST">
+                {{newsletter_form | crispy}}
+                <!-- <input type="email" class="form-control" placeholder="E-mail" aria-label="Recipient's email" aria-describedby="basic-addon2"> -->
+                <button type="submit" class="button red mt-2"><i class="fa fa-envelope" aria-hidden="true"></i> Subscribe</button>
+            </form>
+            <div class="loading-effect"></div>
+              <p class=" mt-1">One email per week. No Spam!</p>
+        </div>
+</div>

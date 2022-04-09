@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block meta_tags %}
+
+<meta name='description' content='{{post.snippet}}' />
+<meta name='keywords' content='{{post.meta_keywords}}' />
+
+<meta property="og:title" content="{{post.title}}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
+<meta property="og:image:url" content="{{post.thumbnail}}-/resize/700x/-/quality/lightest/-/format/auto/" />
+<meta property="og:image:width" content="700" />
+<meta property="og:description" content="{{post.snippet}}" />
+<meta property="og:site_name" content="SoftLab" />
+
+{% endblock %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-0">
+                <img class="rounded-image img-fluid" src="{{post.thumbnail}}-/resize/700x/-/quality/lightest/-/format/auto/" alt="{{post.title}}">
+                <div class="card-body m-0 p-0 pt-3">
+                <a class="post-card-title">
+                    <h2>{{post.title}}</h2>
+                </a>
+                    <small class="text-muted">
+                        <span class="mr-2">{{post.post_date}} | </span>
+                        <i class="fa fa-comments" aria-hidden="true"></i> {{post.comments_count }} |  <i class="fa fa-tags" aria-hidden="true"></i>
+                            {% for tag in post.tags.all %}
+                            <a href="{% url 'tag_posts' tag.slug %}">{{tag.name}}</a>
+                            {% endfor %}
+                    </small>
+                    <div class="row">
+                        <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
+                        <!-- <ul class="social-icons">
+                            <li><a data-href="{{request.build_absolute_uri}}" class="social-icon"> <i class="fa fa-facebook"></i></a></li>                            <li><a href="" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+                            <li><a href="" class="social-icon"> <i class="fa fa-youtube"></i></a></li>
+                            <li><a href="" class="social-icon"> <i class="fa fa-github"></i></a></li>
+                        </ul> -->
+                    </div>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="table-of-contents main" hidden>
+                        <div class="table-of-contents-title">
+                            <h3 class="mb-2 h3 ">Table of Contents</h3>
+                        </div>
+                        <div class="table-of-contents-body">
+                        </div>
+                    </div>
+    
+                    <div class="article-body">
+                        {{post.body | safe}}
+                    </div>
+            </div>
+            {% include 'buy_coffee/buy_coffee_form.html'%} <!--Buy me a coffee template fragment -->
+
+            {% include 'comments/comments_template_fragment.html' %} <!--Comments template fragment -->
+
+            
+
+
+
+
+        </div>
+
+        <div class="col-lg-4"  >
+            <div class="sidebar container-md">
+                <div class='row'>
+                    {% include 'newsletter/newsletter_form.html' %} <!-- Newsletter subscribtion template fragment -->
+                </div>
+                <br>
+               
+              <div class="row">
+                
+                {% include 'categories_fragment.html'  %} <!-- Categories template fragment -->
+          </div>         
+          <br>
+
+          <style>
+              a.fa {
+                text-decoration: none;
+                color: #fff;
+            }
+            p > a:hover{
+                color: #d9d9d9;
+                text-decoration:  underline;
+            }
+            .footer-social-icons {
+                width: 350px;
+                display:block;
+                margin: 0 auto;
+            }
+            .social-icon {
+                color: #fff;
+            }
+            ul.social-icons {
+                margin-top: 10px;
+            }
+            .social-icons li {
+                vertical-align: top;
+                display: inline;
+                height: 100px;
+            }
+            .social-icons a {
+                color: #fff;
+                text-decoration: none;
+            }
+            .social-icons .fa {
+                border-radius: 10px;
+            }
+            .fa-facebook {
+                padding:10px 14px;
+                /* -o-transition:.5s;
+                -ms-transition:.5s;
+                -moz-transition:.5s;
+                -webkit-transition:.5s;
+                transition: .5s; */
+                background-color: #322f30;
+            }
+            .fa-facebook:hover {
+                background-color: #3d5b99;
+            }
+            .fa-twitter {
+                padding:10px 12px;
+                /* -o-transition:.5s;
+                -ms-transition:.5s;
+                -moz-transition:.5s;
+                -webkit-transition:.5s;
+                transition: .5s; */
+                background-color: #322f30;
+            }
+            .fa-twitter:hover {
+                background-color: #00aced;
+            }
+            
+            .fa-youtube {
+                padding:10px 14px;
+                /* -o-transition:.5s;
+                -ms-transition:.5s;
+                -moz-transition:.5s;
+                -webkit-transition:.5s;
+                transition: .5s; */
+                background-color: #322f30;
+            }
+            .fa-youtube:hover {
+                background-color: #e64a41;
+            }
+         
+            .fa-github {
+                padding:10px 14px;
+                /* -o-transition:.5s;
+                -ms-transition:.5s;
+                -moz-transition:.5s;
+                -webkit-transition:.5s;
+                transition: .5s; */
+                background-color: #322f30;
+            }
+            .fa-github:hover {
+                background-color: #5a32a3;
+            }
+          </style>
+         
+
+          <div class="sticky-sidebar">
+            <div class="row">    
+                <div class="table-of-contents secondary" hidden>
+                    <div class="table-of-contents-title">
+                        <h3 class="mb-2 h3">Table of Contents</h3>
+                    </div>
+                    <div class="table-of-contents-body">
+                    </div>
+                    
+                </div>
+            <div class="row">
+                <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
+                
+        </div>
+            </div>
+
+
+           
+
+        </div>
+
+
+
+          </div>
+        </div>
+
+        
+    </div>
+
+
+
+
+
+<script async defer>
+
+var replyToName = document.getElementById('reply-to-name');
+
+    function cancelForm() {
+        cancelReply();
+        document.getElementById('add-comment-form').reset();
+    }
+
+    function replyTo(pk=pk, name=name){
+        replyToName.textContent = `Replying to ${name}...`;
+        replyToName.hidden = false;
+        document.getElementById('parent-pk').value = pk;
+        document.getElementById('cancel-reply').hidden=false;
+        document.getElementById('add-comment-form').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+    }
+
+
+    function cancelReply(){
+        replyToName.textContent = '';
+        replyToName.hidden = true;
+        document.getElementById('parent-pk').value = null;
+        document.getElementById('cancel-reply').hidden=true;
+    }
+</script>
+   
+</div>
+
+
+
+
+<!-- JavaScript dependencies for code blocks begin -->
+<link  rel="stylesheet"
+href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/atom-one-dark.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script  src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+JavaScript dependencies for code blocks end -->
+
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="FQR3wSto"></script>
+
+<script async defer>
+
+    var contentTitles = document.querySelectorAll('.article-body .article-body-title');
+    var contentTitlesLength = contentTitles.length;
+
+    async function mainToc(){
+        mainTableOfContentsHtml = `<ul>`;
+        for(var i=0; i<contentTitlesLength; ++i) {
+            if (contentTitles[i].tagName == "H2")
+                mainTableOfContentsHtml += `<li class="toc-h2"><a onClick="scrolll(${i})">${contentTitles[i].textContent}</a></li>`;
+            else if (contentTitles[i].tagName == "H3") 
+                mainTableOfContentsHtml += `<li class="toc-h3"><a onClick="scrolll(${i})">${contentTitles[i].textContent}</a></li>`;
+    }
+    mainTableOfContentsHtml += "</ul>";
+        return mainTableOfContentsHtml
+    }
+
+    async function secToc(){
+        secTableOfContentsHtml = `<ul>`;
+        for(var j = 0; j < contentTitlesLength; ++j){
+            if (contentTitles[j].tagName == 'H2')
+            secTableOfContentsHtml += `<li class="toc-h2"><a onClick="scrolll(${j})">${contentTitles[j].textContent}</a></li>`;
+        }
+        secTableOfContentsHtml += `</ul>`;
+        return secTableOfContentsHtml
+    }
+
+    async function makeToc() {
+        var mainTocHtml = await mainToc();
+        var secTocHtml = await secToc();
+
+        if (contentTitlesLength > 0) {
+
+            var tocTableBody = document.getElementsByClassName('table-of-contents-body');
+            tocTableBody[0].innerHTML += mainTocHtml;
+            tocTableBody[1].innerHTML += secTocHtml;
+            var tocTable = document.getElementsByClassName('table-of-contents');
+            tocTable[0].hidden=false;
+            tocTable[1].hidden=false;
+    }
+}
+
+    makeToc();
+
+    function scrolll(value){
+        var element = contentTitles[value];
+        element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+    }
+    
+</script>
+
+
+
+<script async defer>
+
+
+$('#add-comment-form').on('submit', function(e){
+  e.preventDefault();
+  var honeypot = $('#honeypot-comment').val(); // trying to catch bot if there is a honeypot value, never send the request to the backend
+  var body = $('#comment-body').val();
+  var loadingEffect =  $('.loading-effect')[1]; // loading effect DOM
+  if(!honeypot && body.length > 5) {
+      loadingEffect.innerHTML='<div class="spinner-border text-dark mt-2" role="status"><span class="sr-only"></span></div>'; // waiting effect bootstrap 
+      $.ajax({
+          type : "POST",
+          url: "{% url 'add_comment' post.pk %}",
+          headers: {'X-CSRFToken': '{{csrf_token}} '},
+          data: {
+              name : $('#comment-name').val(),
+              body : $('#comment-body').val(),
+              parent_pk: $('#parent-pk').val(),
+              honeypot : $('#honeypot').val(),
+              dataType: "json",
+          },
+          success: function(data){
+
+              loadingEffect.innerHTML='';
+              loadingEffect.hidden=true;
+
+
+            showToast(data['msg']);
+              
+
+
+              // TOASTEND
+              document.getElementById('add-comment-form').reset();
+
+            },
+
+          
+          failure: function(error) {
+
+              var msg = 'We are so sorry but something went wrong :(';
+              showToast(msg);
+          }
+      });
+  }
+
+  else {
+            loadingEffect.innerHTML='';
+            loadingEffect.hidden=true;
+
+            var msg = 'Comment length must be longer than 5 characters';
+            showToast(msg);
+  }
+});
+
+</script>
+
+{% endblock %}
+

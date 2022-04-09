@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static%}
+{% load cache%}
+
+
+{% load crispy_forms_tags %}
+{% block title %}Sign Up{% endblock %}
+
+{% block head_dependencies %}
+<link rel="stylesheet" href="{% static 'css/auth-forms.css' %}">
+
+{% endblock %}
+{% block content %}
+
+
+
+
+<div class="container auth-container">
+  <h2>Sign Up</h2>
+  <hr>
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="container-fluid p-0">
+    <div class="alert {{ message.tags }}" role="alert" >
+        {{ message }}
+    </div>
+    </div>
+    {% endfor %}
+    </ul>
+{% endif %} 
+  <p class="text-muted" style="text-decoration: underline; font-weight: 600;">Note: After creating an account you can unlock all premium features that can make you ane expert pythonista!</p>
+  <form method="post"  class="auth-form login mb-4 mx-auto w-100 border rounded p-3">
+    {% csrf_token %}
+    {{ form |crispy}}
+    <button type="submit" class="button blue mt-2 mb-2">Sign Up</button>
+    <p class="text-muted">Already have an account? Please <a href="{% url 'login' %}">Sign in</a></p>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Contact Us{% endblock %}
+
+
+{% block content %}
+<div class="col">
+    <div class="row">
+<div class="col-lg-8 contactus_form ">
+    <h3> <i class="fa fa-paper-plane" aria-hidden="true"></i>
+
+        Contact Us</h3>
+        <hr>
+        <p class="text-muted">Note: If you don't provide an email address, we have no way of getting back to you!</p>
+
+   <form method='POST' action="{% url 'contact_us' %}" id="contactus-form">
+        {{contactus_form | crispy}}
+        <button type="submit" class="button red mt-2 mb-4">Contact</button>
+        <div class="loading-effect"></div>
+    </form>
+</div>
+<div class="col-lg-4">
+    <div class="sidebar container-md">
+            <div class='row'>
+            {% include 'newsletter/newsletter_form.html' %}
+        </div>
+        <br>
+       
+      <div class="row">
+        <!-- <div class="card tags">
+            <div class="card-body">
+                <div class="row">
+                    <h5 class="card-title tag-heading"><span class="material-icons material-icon">local_offer</span> Κατηγορίες</h5>
+                </div>
+                <div class="row">
+                    <ul>
+                        {% for tag in tags %}
+                            <li><a href="{% url 'tag_posts' tag.slug%}">{{tag}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+        {% include 'categories_fragment.html'%}
+  </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+<script async defer>
+    $('#contactus-form').on('submit', function(e){
+    e.preventDefault();
+    var honeypot = $('#contactus_honeypot').val(); // trying to catch bot if there is a honeypot value, never send the request to the backend
+    var loadingEffect = document.getElementsByClassName('loading-effect')[0];// loading effect DOM
+    if(!honeypot){
+        loadingEffect.innerHTML='<div class="spinner-border text-dark mt-2" role="status"><span class="sr-only"></span></div>'; // waiting effect bootstrap 
+        $.ajax({
+            type : "POST", 
+            url: "{% url 'contact_us' %}",
+            data: {
+                name: $('#contactus_name').val(),
+                email : $('#contactus_email').val(),
+                subject: $('#contactus_subject').val(),
+                body: $('#contactus_body').val(),
+                honeypot : $('#contactus_honeypot').val(),
+                dataType: "json",
+            },
+  
+            success: function(data){
+                console.log(data);
+              //   responseText.innerHTML=data['msg'];
+              //   responseText.style = "color: red";
+                loadingEffect.innerHTML='';
+                loadingEffect.hidden=true;
+              //   responseText.hidden=false;
+  
+                // TOASTBEGIN
+                // var toastLiveExample = document.getElementById('liveToast')
+                // var toast = new bootstrap.Toast(toastLiveExample)
+                // var toast_body = document.getElementsByClassName('toast-body')[0];
+                // toast_body.innerText = data['msg'];
+                // toast_body.style = "color: #c60000";
+                // toast.show()
+                showToast(data['msg']);
+  
+                // TOASTEND
+                document.getElementById('contactus-form').reset();
+  
+              },
+  
+            
+            failure: function(error) {
+                console.log(data);
+                var msg = 'We are so sorry but something went wrong :(';
+                showToast(msg);
+                // var toastLiveExample = document.getElementById('liveToast')
+                // var toast = new bootstrap.Toast(toastLiveExample)
+                // var toast_body = document.getElementsByClassName('toast-body')[0];
+                // toast_body.innerText = 'We are so sorry but something went wrong :(';
+                // toast_body.style = "color: red";
+                // toast.show()              
+            }
+        });
+    }
+    else {
+        console.log("We got you bot!")
+    }
+  });    
+</script>
+{% endblock %}
