@@ -24,7 +24,7 @@ It has advanced functionalities such as:
 # Installation
 
 Before you start using the web app you will need to configure a few things in the ***settings.py***.
-Firstly, you need an Uploadcare **secret key** and **public key** which you can get by making an account in [here](https://uploadcare.com/) and going to the ***Upload API dashboard***. Secondly, you need a Stripe API key (for accepting donations), which you can get [here](https://stripe.com/docs/api). You also need to include your E-mail **username** ,**password** and **host** in order to be able to automatically send emails. Last but not least, it would be advisable to use [**PostgreSQL**](https://www.postgresql.org/) as your database (SQLite is not really ment to be used in production) .Before setting the blog live for production make sure you install the **[Whitenoise](http://whitenoise.evans.io/en/stable/)** middleware to serve your static files!
+Firstly, you need an Uploadcare **secret key** and **public key** which you can get by making an account in [here](https://uploadcare.com/) and going to the ***Upload API dashboard***. Secondly, you need a Stripe API key (for accepting donations), which you can get [here](https://stripe.com/docs/api). You also need to include your E-mail **username** ,**password** and **host** in order to be able to automatically send emails. Last but not least, it would be advisable to use [**PostgreSQL**](https://www.postgresql.org/) as your database (SQLite is not really meant to be used in production) .Before setting the blog live for production make sure you install the **[Whitenoise](http://whitenoise.evans.io/en/stable/)** middleware to serve your static files!
 
 
 # Options
