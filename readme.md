@@ -3,7 +3,7 @@
 **Softlab Django Blog** is a ***blog web application*** built on top of the ***Django*** framework.
 It has advanced functionalities such as:
 
- - Dynamically generated Table of Contents for each article (using javascript).
+ - Dynamically generated Table of Contents for each article (using JavaScript).
  - Integrated Image CDN for faster loading speeds (Boosts SEO). ([Uploadcare](https://uploadcare.com/)).
  - A beautiful WYSIWYG editor for writing articles in the admin panel. ([Ckeditor](https://ckeditor.com/)).
  - Authentication for people who want to become members.
@@ -12,10 +12,10 @@ It has advanced functionalities such as:
  - Newsletter subscription capability (with e-mail verification).
  - Searching bar for posts.
  - Infinite scrolling (instead of ordinary pagination).
- - Categories for each post. (Each post can have multiple categories).
+ - Categories for each post. (each post can have multiple categories).
  - Comment section (including reply capability).
  - Donations using the [Stripe API](https://stripe.com/docs/api).
- - "Contact Us" form. (Sends form data to email).
+ - "Contact Us" form. (sends form data to email).
  - Administation Panel (requires authentication from a superuser).
 
 **The site is on live display [here](https://djangoblogdisplay.pythonanywhere.com/).**
