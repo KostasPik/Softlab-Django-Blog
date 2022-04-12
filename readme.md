@@ -29,4 +29,4 @@ Firstly, you need an Uploadcare **secret key** and **public key** which you can 
 
 # Options
 
-You can enable static files offline compression by going to setting.py and setting the **COMPRESS_ENABLED** field to **True** (*make sure you run **python manage.py compress** afterwards*). You can enable caching by tampering with the **CACHES** filed in setting.py.
+You can enable static files offline compression by going to setting.py and setting the **COMPRESS_ENABLED** field to **True** (*make sure you run **python manage.py compress** afterwards*). You can enable caching by tampering with the **CACHES** field in settings.py.
